@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: mypod-green
+  labels: 
+    env: green
+spec:
+  containers:
+    - name: mywebcontainer
+      image: httpd
+      ports:
+        - containerPort: 80
