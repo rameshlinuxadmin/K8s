@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydeployment
+  labels:
+    app: myapp1
+    env: test
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: myapp1
+      env: test
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 2
+  template:
+    metadata:
+      labels:
+        app: myapp1
+        env: test
+    spec:
+      containers:
+        - name: myapp1
+          image: httpd
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"   # Minimum memory guaranteed
+              cpu: "250m"       # Minimum CPU guaranteed
+            limits:
+              memory: "256Mi"   # Maximum memory allowed
+              cpu: "500m"       # Maximum CPU allowed
